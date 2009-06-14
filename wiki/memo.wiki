@@ -1,0 +1,13 @@
+メモ書きです。
+
+= link =
+
+Google App Engine での JSON の使い方
+http://d.hatena.ne.jp/gonsuzuki/20080630/1214888695
+
+= devel log =
+
+* 2009/06/14
+
+とりあえず Google App Engine で書き始めてみる。特に理由もなく Python側 でやってみる。
+チュートリアル ( http://code.google.com/intl/ja/appengine/docs/python/gettingstarted/helloworld.html ) のいうとおりに Hello, World もできた。app.yaml の行頭にある application: のところは大文字は使ってはいけないようだ。
