@@ -13,3 +13,6 @@ http://d.hatena.ne.jp/gonsuzuki/20080630/1214888695
 チュートリアル ( http://code.google.com/intl/ja/appengine/docs/python/gettingstarted/helloworld.html ) のいうとおりに Hello, World もできた。app.yaml の行頭にある application: のところは大文字は使ってはいけないようだ。
 
 xyzzyでeditしているとIDEが恋しくなって、eclipseを入れてみた。んが、初めてつかうもんで何がなんだかわかってないっぷりがひどい。まずdownloadすべき何かがいっぱいあってC++でもJavaでもない私は何をdownloadすればいいの？からはじまって、日本語化したいなぁと思ったけれど Language Pack ってのと別に同じようなパッケージがあって展開したらeclipse本体が入ってたんだけれどこれは一体？みたいなよくある何も知らないから落ちる穴にことごとくハマっている気がする。うぅむ。-3躓きの靴とか履いてそうな気がしてきた。
+
+で、なんとかできた？とりあえず Pleiades とかいうやつ http://mergedoc.sourceforge.jp/ の、Ecripse 3.4 all in one とかいうやつの zip を展開したものに入っていた eclipse を起動して、ヘルプ→ソフトウェア更新→利用可能なソフトウェア→サイトの追加 で出てくる所に http://code.google.com/intl/ja/eclipse/docs/getting_started.html に書いてあったURL( http://dl.google.com/eclipse/plugin/3.4 ) を突っ込んでみたらそれらしいのが出てきたので追加させてみた。これで、一応メニューは日本語化されているし、それらしく突っ込めたみたいだし、スタートラインには立ったのかな？
+
