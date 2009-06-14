@@ -11,3 +11,5 @@ http://d.hatena.ne.jp/gonsuzuki/20080630/1214888695
 
 とりあえず Google App Engine で書き始めてみる。特に理由もなく Python側 でやってみる。
 チュートリアル ( http://code.google.com/intl/ja/appengine/docs/python/gettingstarted/helloworld.html ) のいうとおりに Hello, World もできた。app.yaml の行頭にある application: のところは大文字は使ってはいけないようだ。
+
+xyzzyでeditしているとIDEが恋しくなって、eclipseを入れてみた。んが、初めてつかうもんで何がなんだかわかってないっぷりがひどい。まずdownloadすべき何かがいっぱいあってC++でもJavaでもない私は何をdownloadすればいいの？からはじまって、日本語化したいなぁと思ったけれど Language Pack ってのと別に同じようなパッケージがあって展開したらeclipse本体が入ってたんだけれどこれは一体？みたいなよくある何も知らないから落ちる穴にことごとくハマっている気がする。うぅむ。-3躓きの靴とか履いてそうな気がしてきた。
