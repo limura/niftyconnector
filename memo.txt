@@ -1,0 +1,72 @@
+とりあえずユーザから見たときの class定義 を考える。
+とっぷだうんだ！
+
+namespace NC{
+class NC::Tag;
+
+// ノード+サービス を識別子として用いるためのタグ
+class Tag {
+public:
+  Tag(name);
+  const bool operator==(const Tag &) const;
+  const bool operator!=(const Tag &) const;
+  const bool operator<(const Tag &) const;
+  const bool operator>(const Tag &) const;
+  const bool operator<=(const Tag &) const;
+  const bool operator>=(const Tag &) const;
+  const Tag &operator=(const Tag &);
+};
+
+// タグを検索するための検索式
+class Target {
+public:
+  // 複数見つかった場合の対応
+  typedef enum {
+    SELECT_FIRST, //< 見つけたもののうち最初にあたるものに固定する。相手が居なくなったら次の相手へと再送する
+    SELECT_ROLL,  //< 一回の呼び出しごとに別のノードを選択する
+    SELECT_FAIL,  //< 一個しか見つからなかった場合以外は見つからなかったものとして扱う
+  } IfDuplicated;
+  Service(std::string, const IfDuplicated duplicated = IfDuplicated::SELECT_FIRST);
+}
+
+// 送信時に使われるデータブロック
+class SendDataBlock {
+public:
+  SendDataBlock(allocator == NULL);
+  ~SendDataBlock();
+
+  const bool Write[Ui|I]nt[8|16|32|64](value);
+  const bool WriteBinary(data);
+  const bool Commit();
+}; // class SendDataBlock
+
+// 受信時にユーザに渡されるデータブロック
+class RecivedDataBlock {
+public:
+  RecivedDataBlock(allocator == NULL);
+  ~RecivedDataBlock();
+
+  const bool Read[Ui|I]nt[8|16|32|64](value);
+  const bool ReadBinary(data, size);
+}; // class RecivedDataBlock
+
+// ユーザが作る一つの NCEndpoint class
+class NiftyConnector {
+public:
+  class EventHandler {
+  public:
+    virtual ~EventHandler();
+    virtual void recvEvent(calledNodeTag, calledServiceTag, data);
+    virtual void sendFinishEvent(hint);
+    virtual void sendRecivedEvent(hint);
+    virtual void sendFailedEvent(hint);
+  }; // class EventHandler
+
+  NiftyConnector(tags, allocator == NULL);
+  void SetEventHandler(recvEventHandler);
+  void IOUpdate();
+  const bool Send(Target &reciver, data, sendFinishEventHandler, hint);
+  const SendBuffer *CreateDataBlock();
+}; // class NiftyConnector
+}; // namespace NC
+
