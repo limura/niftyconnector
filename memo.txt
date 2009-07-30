@@ -1,14 +1,19 @@
 なんとなく近いものに対する雑感
 ・TCP/IP
 → コネクション切れるし、IP変わったら通信できんし、NATの中に居るノードには接続できん可能性が高いやん
+参考： http://www.wakasato.org/learn/nepc/course2/chapter04/section07.html 
+参考： TCP over UDP: http://tools.ietf.org/html/draft-baset-tsvwg-tcp-over-udp-01
 ・UDP/IP
 → IP変わったら通信できんし、パケット消えるやん
 ・SCTP
 → 流行ってないやん。あとNAT通れるの？これ
+参考： http://www.ibm.com/developerworks/jp/linux/library/l-sctp/
 ・SIP
 → 専用の中継ノードが必須やん。あと電話でんわしすぎてて大げさでない？
+参考： http://www.nic.ad.jp/ja/newsletter/No29/100.html
 ・RTSP
 → 動画転送専用にしか見えないなぁと思ってそれ以上見てません。これP2Pっぽく動けるの？
+参考： http://www.kanadas.com/investigation-j/2007/04/_rtsp.html
 ・SCTP over UDP
 → かなり正解に近そうな予感だけれど必要ない機能(マルチホームとか死んじゃう)があるよねぇ
 ・HTTP
