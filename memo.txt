@@ -1,24 +1,48 @@
+なんとなく近いものに対する雑感
+・TCP/IP
+→ コネクション切れるし、IP変わったら通信できんし、NATの中に居るノードには接続できん可能性が高いやん
+・UDP/IP
+→ IP変わったら通信できんし、パケット消えるやん
+・SCTP
+→ 流行ってないやん。あとNAT通れるの？これ
+・SIP
+→ 専用の中継ノードが必須やん。あと電話でんわしすぎてて大げさでない？
+・RTSP
+→ 動画転送専用にしか見えないなぁと思ってそれ以上見てません。これP2Pっぽく動けるの？
+・SCTP over UDP
+→ かなり正解に近そうな予感だけれど必要ない機能(マルチホームとか死んじゃう)があるよねぇ
+・HTTP
+→ NAT越えのサービスを記述できれば、実はこれが正解な気もしないでもない
+
+ということで、NAT越えをできる中継ノードをHTTP的に作ればいいんでね？という気がしてきた
+
+
 とりあえずユーザから見たときの class定義 を考える。
 とっぷだうんだ！
 
+#include <string>
+#include <list>
+
 namespace NC{
-class NC::Tag;
+class NiftyConnector;
 
 // ノード+サービス を識別子として用いるためのタグ
-class Tag {
+typedef std::string Tag;
+typedef std::list<Tag> TagList;
+
+// 検索の結果得られる「コネクション」
+class Connection {
+  friend NiftyConnector;
 public:
-  Tag(name);
-  const bool operator==(const Tag &) const;
-  const bool operator!=(const Tag &) const;
-  const bool operator<(const Tag &) const;
-  const bool operator>(const Tag &) const;
-  const bool operator<=(const Tag &) const;
-  const bool operator>=(const Tag &) const;
-  const Tag &operator=(const Tag &);
+  
+private:
+  
 };
+
 
 // タグを検索するための検索式
 class Target {
+  friend NiftyConnector;
 public:
   // 複数見つかった場合の対応
   typedef enum {
@@ -26,11 +50,17 @@ public:
     SELECT_ROLL,  //< 一回の呼び出しごとに別のノードを選択する
     SELECT_FAIL,  //< 一個しか見つからなかった場合以外は見つからなかったものとして扱う
   } IfDuplicated;
-  Service(std::string, const IfDuplicated duplicated = IfDuplicated::SELECT_FIRST);
+  Service(std::string &searchString, const IfDuplicated duplicated = IfDuplicated::SELECT_FIRST);
+
+private:
+  std::string m_SearchString;
+  
+  ConnectionInfo &GetConnectionInfo();
 }
 
 // 送信時に使われるデータブロック
 class SendDataBlock {
+  friend NiftyConnector;
 public:
   SendDataBlock(allocator == NULL);
   ~SendDataBlock();
@@ -42,6 +72,7 @@ public:
 
 // 受信時にユーザに渡されるデータブロック
 class RecivedDataBlock {
+  friend NiftyConnector;
 public:
   RecivedDataBlock(allocator == NULL);
   ~RecivedDataBlock();
@@ -62,7 +93,8 @@ public:
     virtual void sendFailedEvent(hint);
   }; // class EventHandler
 
-  NiftyConnector(tags, allocator == NULL);
+  NiftyConnector(Tag &tag, allocator == NULL);
+  NiftyConnector(TagList &tags, allocator == NULL);
   void SetEventHandler(recvEventHandler);
   void IOUpdate();
   const bool Send(Target &reciver, data, sendFinishEventHandler, hint);
